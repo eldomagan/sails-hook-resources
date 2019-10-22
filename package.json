@@ -1,0 +1,47 @@
+{
+  "name": "sails-hook-resources",
+  "version": "0.1.0",
+  "description": "Provide a REST interface and more to your waterline models",
+  "main": "hook/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "npm run lint",
+    "lint": "eslint . --max-warnings=0"
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "restful",
+    "sails",
+    "resource",
+    "generate",
+    "plugin"
+  ],
+  "author": "Eldo Magan <magan.eldo@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eldomagan/sails-hook-resources.git"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "sails": "^1.2.3"
+  },
+  "dependencies": {
+    "deepmerge": "^4.0.0",
+    "flat": "^4.1.0",
+    "indicative": "^5.0.8",
+    "machine": "^15.2.2",
+    "pluralize": "^8.0.0",
+    "util": "^0.11.1"
+  },
+  "sails": {
+    "isHook": true,
+    "hookName": "resources"
+  },
+  "sailsGenerator": {
+    "type": "resource",
+    "behavior": "Implements or overrides `sails generate resource`",
+    "sailsVersion": "^1.0.0"
+  }
+}
