@@ -22,7 +22,7 @@ module.exports = async function addRelationAction (req, res) {
       data[_via] = req.params.parentId
     }
 
-    return validate(req, res, Model.resouce.validators.create, data)
+    return validate(req, res, Model.resource.validators.create, data)
   }))
 
   if (inputs.every(i => !!i)) {

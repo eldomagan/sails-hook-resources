@@ -1,16 +1,17 @@
 const actionsUtils = require('../utils/actions')
 
 module.exports = async function findAction (req, res) {
+  const options = actionsUtils.parseResourceRequest(req)
+
   if (Object.keys(req.query).includes('_count')) {
     return res.status(200).json({
-      count: await actionsUtils.count(req.options._model, req.query)
+      count: await actionsUtils.count(req.options._model, options._criteria)
     })
   }
 
   const Model = sails.models[req.options._model]
-  const options = actionsUtils.parseResourceRequest(req)
-  const records = await actionsUtils.find(options)
   const total = await actionsUtils.count(options._model, options._criteria)
+  const records = await actionsUtils.find(options)
 
   return res.status(200).json(Model.resource.transformer.paginate(
     records,

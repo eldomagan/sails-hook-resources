@@ -220,7 +220,7 @@ function buildPersistGraph (model, inputs) {
           }
         }
 
-        if (!sails.models[tree._model].actions[actionName]) {
+        if (!sails.models[tree._model].resource.actions[actionName]) {
           sails.log.warn(`It look like you are trying to persist relation "${relation}"`);
           sails.log.warn(`which is not defined on the model ${capitalize(tree._model)}`);
           sails.log.warn(`There should be a custom action "${actionName}" defined on the model custom actions`);

@@ -290,8 +290,7 @@ async function updateOne (Model, criteria, inputs) {
 async function count (model, criteria) {
   const Model = sails.models[model]
 
-  criteria = criteria.where ? criteria.where : criteria
-
+  criteria = criteria.where || criteria
   criteria = Object.keys(criteria).reduce((result, key) => {
     if (
       key !== '_count' &&
