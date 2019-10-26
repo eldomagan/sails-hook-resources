@@ -173,7 +173,7 @@ async function create (options, inputs) {
     sails.emit(`restapi:created:${Model.identify}`, record)
 
     if (Model.resource.observer && Model.resource.observer.created) {
-      await Model.resource.observer.created(record)
+      await Model.resource.observer.created(record, inputs)
     }
 
     return record
@@ -251,7 +251,7 @@ async function create (options, inputs) {
   await Promise.all(otherRelationsPromises)
 
   if (Model.resource.observer && Model.resource.observer.created) {
-    Model.resource.observer.created(response)
+    Model.resource.observer.created(response, inputs)
   }
 
   return response
