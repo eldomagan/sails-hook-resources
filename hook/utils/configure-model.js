@@ -29,6 +29,9 @@ module.exports = function configureModel (Model, appPath, config) {
 
   resourceConfig.url = config.prefix + '/' + resourceConfig.path
 
+  // Pagination options
+  resourceConfig.pagination = Object.assign({}, config.pagination, resourceConfig.pagination)
+
   // Validators configuration
   if (resourceConfig.validators.create) {
     if (typeof resourceConfig.validators.create === 'string') {

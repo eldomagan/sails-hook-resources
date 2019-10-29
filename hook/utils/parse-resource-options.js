@@ -234,11 +234,14 @@ function buildPersistGraph (model, inputs) {
 }
 
 function normalizeCriteria (tree) {
+  const Model = sails.models[tree._model]
   const criteria = tree._criteria || {};
   const normalizedCriteria = {};
 
   if (criteria.limit) {
     normalizedCriteria.limit = parseInt(criteria.limit);
+  } else {
+    normalizedCriteria.limit = Model.resource.pagination.limit
   }
 
   if (criteria.offset) {
@@ -251,7 +254,7 @@ function normalizeCriteria (tree) {
   }
 
   // Where clauses
-  const attributes = Object.keys(sails.models[tree._model].attributes);
+  const attributes = Object.keys(Model.attributes);
   const filters = pick(criteria, attributes);
   const where = {};
 

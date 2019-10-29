@@ -50,11 +50,9 @@ Transformer.prototype.collection = function (records) {
   return records
 }
 
-Transformer.prototype.paginate = function (records, { total }) {
+Transformer.prototype.paginate = function (records, meta) {
   return this
-    .meta('pagination', {
-      total
-    })
+    .meta('pagination', meta)
     .collection(records)
 }
 

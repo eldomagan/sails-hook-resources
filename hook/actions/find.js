@@ -16,7 +16,10 @@ module.exports = async function findAction (req, res) {
   return res.status(200).json(Model.resource.transformer.paginate(
     records,
     {
-      total
+      total,
+      count: records.length,
+      from: options._criteria.skip + 1,
+      to: options._criteria.limit
     }
   ))
 }
