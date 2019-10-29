@@ -96,7 +96,11 @@ async function find (options) {
   }
 
   directIncludes.forEach(inc => {
-    rootQuery.populate(inc, options[inc]._criteria)
+    if (options[inc]._type === 'belongsTo') {
+      rootQuery.populate(inc)
+    } else {
+      rootQuery.populate(inc, options[inc]._criteria)
+    }
   })
 
   function deepPopulates (records) {
