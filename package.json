@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-resources",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Provide a REST interface and more to your waterline models",
   "main": "hook/index.js",
   "scripts": {
