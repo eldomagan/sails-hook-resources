@@ -278,7 +278,7 @@ async function updateOne (Model, criteria, inputs) {
         Model.attributes[attr].model
       ) {
         const pk = Model.attributes[attr].primaryKey
-        if (input[pk]) {
+        if (input && input[pk]) {
           inputs[attr] = input[pk]
         }
       } else if (inputs[attr]) {
