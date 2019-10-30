@@ -13,13 +13,15 @@ module.exports = async function findAction (req, res) {
   const total = await actionsUtils.count(options._model, options._criteria)
   const records = await actionsUtils.find(options)
 
+  const offset = options._criteria.skip || 0
+
   return res.status(200).json(Model.resource.transformer.paginate(
     records,
     {
       total,
       count: records.length,
-      from: (options._criteria.skip || 0) + records.length > 0 ? 1 : 0,
-      to: (options._criteria.skip || 0) + records.length
+      from: offset + (records.length > 0 ? 1 : 0),
+      to: offset + records.length
     }
   ))
 }

@@ -295,6 +295,12 @@ function normalizeCriteria (tree) {
     }
   });
 
+  if (criteria.search && Model.resource.searchable ) {
+    where.or = Model.resource.searchable.map(field => ({
+      [field]: { contains: criteria.search }
+    }))
+  }
+
   if (Object.keys(where).length > 0) {
     normalizedCriteria.where = where;
   }
@@ -327,7 +333,7 @@ module.exports = function parseResourceOptions (req) {
     const graph = buildPopulateGraph(model, includes, criteria);
 
     normalizeCriteria(graph);
-    sails.log('-->', graph)
+
     return graph;
   } else {
     // TODO: think about how to generate the tree validation
