@@ -1,6 +1,18 @@
 const unflatten = require('flat').unflatten;
 const { capitalize, unique, setValue, omit, pick } = require('.');
 
+const parseValueToPrimitive = value => {
+  if (value === 'false') {
+    return false
+  } else if (value === 'true') {
+    return true
+  } else if (value === 'null') {
+    return null
+  } else {
+    return value
+  }
+}
+
 const OPERATORS_MAP = {
   'eq': '=',
   'ne': '!=',
@@ -117,6 +129,16 @@ function buildPopulateGraph (model, includes, criteria, relations = []) {
     if (typeof criteria[relation] === 'object' && !Array.isArray(criteria[relation])) {
       relationCriteria = criteria[relation];
       delete criteria[relation];
+
+      Object.keys(relationCriteria).forEach(key => {
+        if (Object.keys(OPERATORS_MAP).includes(key) || Object.values(OPERATORS_MAP).includes(key)) {
+          if (!criteria[relation]) {
+            criteria[relation] = {}
+          }
+          criteria[relation][key] = relationCriteria[key]
+          delete relationCriteria[key]
+        }
+      })
     }
 
     if (index !== -1) {
@@ -265,11 +287,11 @@ function normalizeCriteria (tree) {
       };
     } else if (typeof filters[key] === 'object') {
       where[key] = Object.keys(filters[key]).reduce((result, op) => {
-        result[OPERATORS_MAP[op] || op] = filters[key][op];
+        result[OPERATORS_MAP[op] || op] = parseValueToPrimitive(filters[key][op]);
         return result;
       }, {});
-    } else {
-      where[key] = filters[key];
+    } else if (filters[key]) {
+      where[key] = parseValueToPrimitive(filters[key]);
     }
   });
 
@@ -305,7 +327,7 @@ module.exports = function parseResourceOptions (req) {
     const graph = buildPopulateGraph(model, includes, criteria);
 
     normalizeCriteria(graph);
-
+    sails.log('-->', graph)
     return graph;
   } else {
     // TODO: think about how to generate the tree validation

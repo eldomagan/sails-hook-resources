@@ -18,7 +18,7 @@ module.exports = async function findAction (req, res) {
     {
       total,
       count: records.length,
-      from: (options._criteria.skip || 0) + 1,
+      from: (options._criteria.skip || 0) + records.length > 0 ? 1 : 0,
       to: (options._criteria.skip || 0) + records.length
     }
   ))
