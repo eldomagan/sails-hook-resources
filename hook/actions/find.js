@@ -18,8 +18,8 @@ module.exports = async function findAction (req, res) {
     {
       total,
       count: records.length,
-      from: options._criteria.skip + 1,
-      to: options._criteria.limit
+      from: (options._criteria.skip || 0) + 1,
+      to: (options._criteria.skip || 0) + records.length
     }
   ))
 }
