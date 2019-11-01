@@ -249,13 +249,14 @@ async function create (options, inputs) {
       }
     })
 
-  sails.emit('restapi:created', Model.identity, response)
-  sails.emit(`restapi:created:${Model.identify}`, response)
 
   await Promise.all(otherRelationsPromises)
 
+  sails.emit('restapi:created', Model.identity, response)
+  sails.emit(`restapi:created:${Model.identify}`, response)
+
   if (Model.resource.observer && Model.resource.observer.created) {
-    Model.resource.observer.created(response, inputs)
+    await Model.resource.observer.created(response, inputs)
   }
 
   return response
