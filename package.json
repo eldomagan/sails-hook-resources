@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "deepmerge": "^4.0.0",
-    "flat": "^4.1.0",
+    "flat": "^5.0.1",
     "indicative": "^5.0.8",
     "machine": "^15.2.2",
     "pluralize": "^8.0.0",
